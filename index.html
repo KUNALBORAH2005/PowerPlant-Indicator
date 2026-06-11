@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APGCL — AI Turbine Health Monitoring & Failure Prediction System</title>
+  <meta name="description" content="Advanced AI-based turbine health monitoring, forecasting, and failure prediction system for APGCL thermal power stations." />
+  <meta name="keywords" content="APGCL, turbine monitoring, predictive maintenance, AI forecasting, failure prediction, thermal power plant" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <!-- ======================== SIDEBAR ======================== -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-logo">
+        <div class="logo-icon" aria-hidden="true">⚡</div>
+        <div class="logo-text">
+          <div class="logo-title">APGCL Monitor</div>
+          <div class="logo-subtitle">AI Health Intelligence</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Main</div>
+
+        <a class="nav-item active" data-page="dashboard" role="button" tabindex="0" id="nav-dashboard" aria-label="Turbine Health Dashboard">
+          <span class="nav-icon" aria-hidden="true">🏠</span>
+          <span>Health Dashboard</span>
+        </a>
+
+        <a class="nav-item" data-page="forecasting" role="button" tabindex="0" id="nav-forecasting" aria-label="Parameter Forecasting">
+          <span class="nav-icon" aria-hidden="true">📈</span>
+          <span>AI Forecasting</span>
+        </a>
+
+        <a class="nav-item" data-page="prediction" role="button" tabindex="0" id="nav-prediction" aria-label="Failure Prediction">
+          <span class="nav-icon" aria-hidden="true">🔬</span>
+          <span>Failure Prediction</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Management</div>
+
+        <a class="nav-item" data-page="compliance" role="button" tabindex="0" id="nav-compliance" aria-label="OEM Compliance Dashboard">
+          <span class="nav-icon" aria-hidden="true">📋</span>
+          <span>OEM Compliance</span>
+        </a>
+
+        <a class="nav-item" data-page="alerts" role="button" tabindex="0" id="nav-alerts" aria-label="Alert Management">
+          <span class="nav-icon" aria-hidden="true">🔔</span>
+          <span>Alerts</span>
+          <span class="nav-badge" id="alert-nav-badge" style="display:none">0</span>
+        </a>
+
+        <a class="nav-item" data-page="history" role="button" tabindex="0" id="nav-history" aria-label="Historical Analytics">
+          <span class="nav-icon" aria-hidden="true">📚</span>
+          <span>History & Analytics</span>
+        </a>
+      </div>
+
+      <!-- Fleet quick status -->
+      <div class="sidebar-section" style="margin-top:auto">
+        <div class="sidebar-section-label">Fleet Status</div>
+        <div id="sidebar-fleet-status"></div>
+      </div>
+
+      <!-- Station info -->
+      <div style="padding:var(--space-4);border-top:1px solid var(--border)">
+        <div style="font-size:10px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">APGCL Stations</div>
+        <div style="font-size:11px;color:var(--text-secondary);line-height:1.8">
+          📍 Namrup Thermal (GT-01,02,03)<br>
+          📍 Bongaigaon (GT-04,05)<br>
+          📍 LGBR Power (GT-06)
+        </div>
+        <div style="margin-top:var(--space-3);font-size:10px;color:var(--text-muted)">
+          Assam Power Generation Corporation Ltd.<br>
+          <span style="color:var(--accent-blue)">AI Monitoring System v2.0</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================== MAIN CONTENT ======================== -->
+    <main class="main-content" role="main">
+
+      <!-- TOP HEADER -->
+      <header class="top-header" role="banner">
+        <div style="flex:1">
+          <h1 class="header-title" id="header-title">Turbine Health Dashboard</h1>
+          <div class="header-subtitle" id="header-subtitle">Live Fleet Status — APGCL</div>
+        </div>
+
+        <div class="header-actions">
+          <div class="live-indicator" role="status" aria-live="polite" aria-label="System live status">
+            <div class="live-dot" aria-hidden="true"></div>
+            LIVE
+          </div>
+
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);font-weight:500" id="header-clock" aria-live="off"></div>
+
+          <button class="header-btn" id="notif-btn" aria-label="View notification preview" title="View Email & SMS Notification Preview">
+            📧 Notifications
+          </button>
+        </div>
+      </header>
+
+      <!-- ======================== PAGE CONTAINER ======================== -->
+      <div class="page-content" id="page-container">
+
+        <!-- DASHBOARD PAGE -->
+        <section class="page active" id="page-dashboard" role="region" aria-labelledby="nav-dashboard"></section>
+
+        <!-- FORECASTING PAGE -->
+        <section class="page" id="page-forecasting" role="region" aria-labelledby="nav-forecasting"></section>
+
+        <!-- PREDICTION PAGE -->
+        <section class="page" id="page-prediction" role="region" aria-labelledby="nav-prediction"></section>
+
+        <!-- COMPLIANCE PAGE -->
+        <section class="page" id="page-compliance" role="region" aria-labelledby="nav-compliance"></section>
+
+        <!-- ALERTS PAGE -->
+        <section class="page" id="page-alerts" role="region" aria-labelledby="nav-alerts"></section>
+
+        <!-- HISTORY PAGE -->
+        <section class="page" id="page-history" role="region" aria-labelledby="nav-history"></section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Sidebar fleet quick status script (runs before module to populate sidebar) -->
+  <script>
+    // Populate sidebar fleet status before modules load
+    (function() {
+      const items = [
+        { id: 'GT-01', status: 'running' },
+        { id: 'GT-02', status: 'running' },
+        { id: 'GT-03', status: 'alert' },
+        { id: 'GT-04', status: 'running' },
+        { id: 'GT-05', status: 'maintenance' },
+        { id: 'GT-06', status: 'running' },
+      ];
+      const statusColors = { running: '#10b981', alert: '#ef4444', maintenance: '#f97316', offline: '#475569' };
+      const statusLabels = { running: 'Run', alert: 'Alert', maintenance: 'Maint.', offline: 'Off' };
+
+      const container = document.getElementById('sidebar-fleet-status');
+      if (container) {
+        container.innerHTML = items.map(item => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:3px 8px;margin-bottom:2px;border-radius:6px;cursor:pointer;transition:background 150ms" 
+               onmouseover="this.style.background='rgba(59,130,246,0.08)'" 
+               onmouseout="this.style.background='transparent'"
+               onclick="document.querySelector('[data-page=dashboard]').click()">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#93c5fd">${item.id}</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:${statusColors[item.status]}">
+              <span style="width:6px;height:6px;border-radius:50%;background:${statusColors[item.status]};${item.status === 'alert' ? 'animation:livePulse 1.5s infinite' : ''}"></span>
+              ${statusLabels[item.status]}
+            </span>
+          </div>
+        `).join('');
+      }
+    })();
+  </script>
+
+  <!-- Main Application Module -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
